@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace QuanLyGiaoVien.Helper
 {
@@ -44,6 +45,32 @@ namespace QuanLyGiaoVien.Helper
 
                 conn.Open();
                 return cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void ExecuteQuery(string sql, NpgsqlParameter parameter, DataGridView dataGridView)
+        {
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (var command = new NpgsqlCommand(sql, connection))
+                    {
+                        command.Parameters.Add(parameter);
+                        using (var adapter = new NpgsqlDataAdapter(command))
+                        {
+                            DataTable dataTable = new DataTable();
+                            adapter.Fill(dataTable);
+                            dataGridView.DataSource = dataTable;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error executing query: {ex.Message}", "Database Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
         public int ExecuteNonQuery(string query, params NpgsqlParameter[] parameters)

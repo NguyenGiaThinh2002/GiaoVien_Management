@@ -2,7 +2,7 @@
 
 namespace QuanLyGiaoVien
 {
-    partial class EditGiaoVienForm
+    partial class LuongForm
     {
         private System.ComponentModel.IContainer components = null;
         private Label lblTitle;
@@ -23,15 +23,16 @@ namespace QuanLyGiaoVien
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtGioiTinh = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtHocVi = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.cbTenKhoa = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.dateTimePickerNS = new System.Windows.Forms.DateTimePicker();
-            this.numLuong = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.numLuong)).BeginInit();
+            this.numLuongPhuCap = new System.Windows.Forms.NumericUpDown();
+            this.numLuongCoban = new System.Windows.Forms.NumericUpDown();
+            this.numNam = new System.Windows.Forms.NumericUpDown();
+            this.numThang = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.numLuongPhuCap)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLuongCoban)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numNam)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numThang)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -56,7 +57,6 @@ namespace QuanLyGiaoVien
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 2;
             this.btnOK.Text = "Luu";
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // label1
             // 
@@ -72,103 +72,107 @@ namespace QuanLyGiaoVien
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(58, 100);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 16);
+            this.label2.Size = new System.Drawing.Size(46, 16);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Ngay Sinh";
+            this.label2.Text = "Thang";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(58, 153);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 16);
+            this.label3.Size = new System.Drawing.Size(36, 16);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Gioi Tinh";
-            // 
-            // txtGioiTinh
-            // 
-            this.txtGioiTinh.Location = new System.Drawing.Point(157, 153);
-            this.txtGioiTinh.Name = "txtGioiTinh";
-            this.txtGioiTinh.Size = new System.Drawing.Size(300, 22);
-            this.txtGioiTinh.TabIndex = 7;
+            this.label3.Text = "Nam";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(58, 207);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 16);
+            this.label4.Size = new System.Drawing.Size(88, 16);
             this.label4.TabIndex = 10;
-            this.label4.Text = "Hoc Vi";
-            // 
-            // txtHocVi
-            // 
-            this.txtHocVi.Location = new System.Drawing.Point(157, 207);
-            this.txtHocVi.Name = "txtHocVi";
-            this.txtHocVi.Size = new System.Drawing.Size(300, 22);
-            this.txtHocVi.TabIndex = 9;
+            this.label4.Text = "Luong co ban";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(58, 252);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(44, 16);
+            this.label5.Size = new System.Drawing.Size(95, 16);
             this.label5.TabIndex = 12;
-            this.label5.Text = "Luong";
+            this.label5.Text = "Luong phu cap";
             // 
-            // cbTenKhoa
+            // numLuongPhuCap
             // 
-            this.cbTenKhoa.FormattingEnabled = true;
-            this.cbTenKhoa.Location = new System.Drawing.Point(157, 293);
-            this.cbTenKhoa.Name = "cbTenKhoa";
-            this.cbTenKhoa.Size = new System.Drawing.Size(300, 24);
-            this.cbTenKhoa.TabIndex = 13;
+            this.numLuongPhuCap.Location = new System.Drawing.Point(157, 252);
+            this.numLuongPhuCap.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.numLuongPhuCap.Name = "numLuongPhuCap";
+            this.numLuongPhuCap.Size = new System.Drawing.Size(300, 22);
+            this.numLuongPhuCap.TabIndex = 16;
             // 
-            // label6
+            // numLuongCoban
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(58, 296);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 16);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Ten Khoa";
+            this.numLuongCoban.Location = new System.Drawing.Point(157, 205);
+            this.numLuongCoban.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.numLuongCoban.Name = "numLuongCoban";
+            this.numLuongCoban.Size = new System.Drawing.Size(300, 22);
+            this.numLuongCoban.TabIndex = 17;
             // 
-            // dateTimePickerNS
+            // numNam
             // 
-            this.dateTimePickerNS.Location = new System.Drawing.Point(157, 100);
-            this.dateTimePickerNS.Name = "dateTimePickerNS";
-            this.dateTimePickerNS.Size = new System.Drawing.Size(300, 22);
-            this.dateTimePickerNS.TabIndex = 15;
+            this.numNam.Location = new System.Drawing.Point(157, 153);
+            this.numNam.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.numNam.Name = "numNam";
+            this.numNam.Size = new System.Drawing.Size(300, 22);
+            this.numNam.TabIndex = 19;
             // 
-            // numLuong
+            // numThang
             // 
-            this.numLuong.Location = new System.Drawing.Point(157, 252);
-            this.numLuong.Name = "numLuong";
-            this.numLuong.Size = new System.Drawing.Size(300, 22);
-            this.numLuong.TabIndex = 16;
+            this.numThang.Location = new System.Drawing.Point(157, 100);
+            this.numThang.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.numThang.Name = "numThang";
+            this.numThang.Size = new System.Drawing.Size(300, 22);
+            this.numThang.TabIndex = 20;
             // 
-            // EditGiaoVienForm
+            // LuongForm
             // 
             this.ClientSize = new System.Drawing.Size(630, 389);
-            this.Controls.Add(this.numLuong);
-            this.Controls.Add(this.dateTimePickerNS);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.cbTenKhoa);
+            this.Controls.Add(this.numThang);
+            this.Controls.Add(this.numNam);
+            this.Controls.Add(this.numLuongCoban);
+            this.Controls.Add(this.numLuongPhuCap);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtHocVi);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtGioiTinh);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.txtTenGiaoVien);
             this.Controls.Add(this.btnOK);
-            this.Name = "EditGiaoVienForm";
+            this.Name = "LuongForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit";
-            ((System.ComponentModel.ISupportInitialize)(this.numLuong)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLuongPhuCap)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLuongCoban)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numNam)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numThang)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,13 +181,11 @@ namespace QuanLyGiaoVien
         private Label label1;
         private Label label2;
         private Label label3;
-        private TextBox txtGioiTinh;
         private Label label4;
-        private TextBox txtHocVi;
         private Label label5;
-        private ComboBox cbTenKhoa;
-        private Label label6;
-        private DateTimePicker dateTimePickerNS;
-        private NumericUpDown numLuong;
+        private NumericUpDown numLuongPhuCap;
+        private NumericUpDown numLuongCoban;
+        private NumericUpDown numNam;
+        private NumericUpDown numThang;
     }
 }

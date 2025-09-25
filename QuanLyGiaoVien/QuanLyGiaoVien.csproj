@@ -77,6 +77,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LuongForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LuongForm.Designer.cs">
+      <DependentUpon>LuongForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KhoaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KhoaForm.Designer.cs">
+      <DependentUpon>KhoaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditGiaoVienForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,9 +103,17 @@
       <DependentUpon>menu.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\GiaoVien.cs" />
+    <Compile Include="Models\Khoa.cs" />
+    <Compile Include="Models\Luong.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
+    <EmbeddedResource Include="LuongForm.resx">
+      <DependentUpon>LuongForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KhoaForm.resx">
+      <DependentUpon>KhoaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditGiaoVienForm.resx">
       <DependentUpon>EditGiaoVienForm.cs</DependentUpon>
     </EmbeddedResource>

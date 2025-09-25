@@ -89,26 +89,87 @@ namespace QuanLyGiaoVien
         }
         private void AddKhoa()
         {
-           //// string tenKhoa = txtKhoaName.Text;
-           // _repo.Execute($"INSERT INTO khoa(tenkhoa) VALUES('{tenKhoa}')");
-           // LoadKhoa();
+            using (var form = new KhoaForm(_db))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    var khoa = form.EnteredKhoa;
+
+                    string sql = @"INSERT INTO Khoa (ten_khoa, so_dien_thoai, dia_chi)
+                           VALUES (@ten_khoa, @so_dien_thoai, @dia_chi)";
+
+                    _db.Execute(sql,
+                        new Npgsql.NpgsqlParameter("@ten_khoa", khoa.TenKhoa),
+                        new Npgsql.NpgsqlParameter("@so_dien_thoai", khoa.SoDienThoai),
+                        new Npgsql.NpgsqlParameter("@dia_chi", khoa.DiaChi)
+                    );
+
+                    LoadKhoa();
+                }
+            }
         }
 
         private void EditKhoa()
         {
-            ////if (dataGridViewKhoa.CurrentRow == null) return;
-            ////int id = Convert.ToInt32(dataGridViewKhoa.CurrentRow.Cells["id"].Value);
-            ////string tenKhoa = txtKhoaName.Text;
-            //_repo.Execute($"UPDATE khoa SET tenkhoa = '{tenKhoa}' WHERE id = {id}");
-            //LoadKhoa();
+            if (dataGridKhoa.CurrentRow == null) return;
+
+            var khoa = new Khoa
+            {
+                Id = Convert.ToInt32(dataGridKhoa.CurrentRow.Cells["khoa_id"].Value),
+                TenKhoa = dataGridKhoa.CurrentRow.Cells["ten_khoa"].Value.ToString(),
+                SoDienThoai = dataGridKhoa.CurrentRow.Cells["so_dien_thoai"].Value.ToString(),
+                DiaChi = dataGridKhoa.CurrentRow.Cells["dia_chi"].Value.ToString()
+            };
+
+            using (var form = new KhoaForm(_db, khoa))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    khoa = form.EnteredKhoa;
+
+                    string sql = @"UPDATE Khoa
+                           SET ten_khoa = @ten_khoa,
+                               so_dien_thoai = @so_dien_thoai,
+                               dia_chi = @dia_chi
+                           WHERE khoa_id = @khoa_id";
+
+                    _db.Execute(sql,
+                        new Npgsql.NpgsqlParameter("@khoa_id", khoa.Id),
+                        new Npgsql.NpgsqlParameter("@ten_khoa", khoa.TenKhoa),
+                        new Npgsql.NpgsqlParameter("@so_dien_thoai", khoa.SoDienThoai),
+                        new Npgsql.NpgsqlParameter("@dia_chi", khoa.DiaChi)
+                    );
+
+                    LoadKhoa();
+                }
+            }
         }
 
         private void DeleteKhoa()
         {
-            //if (dataGridKhoa.CurrentRow == null) return;
-            //int id = Convert.ToInt32(dataGridVKhoa.CurrentRow.Cells["id"].Value);
-            //_repo.Execute($"DELETE FROM khoa WHERE id = {id}");
-            //LoadKhoa();
+            if (dataGridKhoa.CurrentRow == null)
+            {
+                MessageBox.Show("Please select a record to delete.", "Warning",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int idKhoa = Convert.ToInt32(dataGridKhoa.CurrentRow.Cells["khoa_id"].Value);
+
+            var confirm = MessageBox.Show("Are you sure you want to delete this record?",
+                "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (confirm == DialogResult.Yes)
+            {
+                string sql = "DELETE FROM Khoa WHERE khoa_id = @khoa_id";
+
+                _db.Execute(sql, new Npgsql.NpgsqlParameter("@khoa_id", idKhoa));
+
+                MessageBox.Show("Record deleted successfully.", "Info",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                LoadKhoa();
+            }
         }
 
         private void AddGiaoVien()
@@ -209,32 +270,124 @@ namespace QuanLyGiaoVien
                 LoadGiaoVien(); // refresh grid
             }
         }
-
-
         private void AddLuong()
         {
-            //decimal soTien = Convert.ToDecimal(txtLuong.Text);
-            //_repo.Execute($"INSERT INTO luong(sotien) VALUES({soTien})");
-            //LoadLuong();
+            using (var form = new LuongForm(_db))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    var luong = form.EnteredLuong;
+
+                    string sql = @"INSERT INTO bangluong (giaovien_id, thang, nam, luong_coban, phucap)
+               VALUES (@giaovien_id, @thang, @nam, @luong_coban, @phucap)";
+                    _db.Execute(sql,
+                        new NpgsqlParameter("@giaovien_id", luong.GiaoVienId),
+                        new NpgsqlParameter("@thang", luong.Thang),
+                        new NpgsqlParameter("@nam", luong.Nam),
+                        new NpgsqlParameter("@luong_coban", luong.LuongCoBan),
+                        new NpgsqlParameter("@phucap", luong.PhuCap)
+                    );
+
+                    LoadBangLuong();
+                }
+            }
         }
 
         private void EditLuong()
         {
-            //if (dataGridViewLuong.CurrentRow == null) return;
-            //int id = Convert.ToInt32(dataGridViewLuong.CurrentRow.Cells["id"].Value);
-            //decimal soTien = Convert.ToDecimal(txtLuong.Text);
-            //_repo.Execute($"UPDATE luong SET sotien = {soTien} WHERE id = {id}");
-            //LoadLuong();
+            if (dataGridLuong.CurrentRow == null) return;
+
+            var luong = new Luong
+            {
+                BangLuongId = Convert.ToInt32(dataGridLuong.CurrentRow.Cells["bangluong_id"].Value),
+                GiaoVienId = Convert.ToInt32(dataGridLuong.CurrentRow.Cells["giaovien_id"].Value),
+                Thang = Convert.ToInt32(dataGridLuong.CurrentRow.Cells["thang"].Value),
+                Nam = Convert.ToInt32(dataGridLuong.CurrentRow.Cells["nam"].Value),
+                LuongCoBan = Convert.ToDecimal(dataGridLuong.CurrentRow.Cells["luong_coban"].Value),
+                PhuCap = Convert.ToDecimal(dataGridLuong.CurrentRow.Cells["phucap"].Value),
+            };
+
+            using (var form = new LuongForm(_db, luong))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    luong = form.EnteredLuong;
+
+                    string sql = @"UPDATE bangluong
+                                   SET giaovien_id = @giaovien_id,
+                                       thang = @thang,
+                                       nam = @nam,
+                                       luong_coban = @luong_coban,
+                                       phucap = @phucap
+                                   WHERE bangluong_id = @bangluong_id";
+
+                    _db.Execute(sql,
+                        new NpgsqlParameter("@bangluong_id", luong.BangLuongId),
+                        new NpgsqlParameter("@giaovien_id", luong.GiaoVienId),
+                        new NpgsqlParameter("@thang", luong.Thang),
+                        new NpgsqlParameter("@nam", luong.Nam),
+                        new NpgsqlParameter("@luong_coban", luong.LuongCoBan),
+                        new NpgsqlParameter("@phucap", luong.PhuCap)
+                    );
+
+                    LoadBangLuong();
+                }
+            }
         }
 
         private void DeleteLuong()
         {
-            //if (dataGridViewLuong.CurrentRow == null) return;
-            //int id = Convert.ToInt32(dataGridViewLuong.CurrentRow.Cells["id"].Value);
-            //_repo.Execute($"DELETE FROM luong WHERE id = {id}");
-            //LoadLuong();
+            if (dataGridLuong.CurrentRow == null)
+            {
+                MessageBox.Show("Please select a record to delete.", "Warning",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int idLuong = Convert.ToInt32(dataGridLuong.CurrentRow.Cells["bangluong_id"].Value);
+
+            var confirm = MessageBox.Show("Are you sure you want to delete this record?",
+                "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (confirm == DialogResult.Yes)
+            {
+                string sql = "DELETE FROM bangluong WHERE bangluong_id = @bangluong_id";
+
+                _db.Execute(sql, new NpgsqlParameter("@bangluong_id", idLuong));
+
+                MessageBox.Show("Record deleted successfully.", "Info",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                LoadBangLuong();
+            }
         }
 
+        private void findButton_Click(object sender, EventArgs e)
+        {
+            string searchText = textFindField.Text.Trim();
+            if (string.IsNullOrEmpty(searchText)) return;
 
+            switch (tabControl1.SelectedIndex)
+            {
+                case 0: // Khoa
+                    string sqlKhoa = @"SELECT * FROM khoa WHERE ten_khoa ILIKE @searchText";
+                    _db.ExecuteQuery(sqlKhoa, new Npgsql.NpgsqlParameter("@searchText", $"%{searchText}%"), dataGridKhoa);
+                    break;
+
+                case 1: // GiaoVien
+                    string sqlGiaoVien = @"SELECT * FROM giaovien WHERE ho_ten ILIKE @searchText";
+                    _db.ExecuteQuery(sqlGiaoVien, new Npgsql.NpgsqlParameter("@searchText", $"%{searchText}%"), dataGridGiaoVien);
+                    break;
+
+                case 2: // Luong
+                    string sqlLuong = @"SELECT * FROM bangluong WHERE bangluong_id::text ILIKE @searchText";
+                    _db.ExecuteQuery(sqlLuong, new Npgsql.NpgsqlParameter("@searchText", $"%{searchText}%"), dataGridLuong);
+                    break;
+
+                default:
+                    MessageBox.Show("Invalid tab index.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+            }
+        }
     }
 }
