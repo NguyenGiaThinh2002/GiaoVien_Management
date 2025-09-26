@@ -6,7 +6,6 @@ namespace QuanLyGiaoVien
     {
         private System.ComponentModel.IContainer components = null;
         private Label lblTitle;
-        private TextBox txtTenGiaoVien;
         private Button btnOK;
 
         protected override void Dispose(bool disposing)
@@ -18,7 +17,6 @@ namespace QuanLyGiaoVien
         private void InitializeComponent()
         {
             this.lblTitle = new System.Windows.Forms.Label();
-            this.txtTenGiaoVien = new System.Windows.Forms.TextBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -31,6 +29,7 @@ namespace QuanLyGiaoVien
             this.label6 = new System.Windows.Forms.Label();
             this.dateTimePickerNS = new System.Windows.Forms.DateTimePicker();
             this.numLuong = new System.Windows.Forms.NumericUpDown();
+            this.cbTenGiaoVien = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numLuong)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,13 +40,6 @@ namespace QuanLyGiaoVien
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(0, 16);
             this.lblTitle.TabIndex = 0;
-            // 
-            // txtTenGiaoVien
-            // 
-            this.txtTenGiaoVien.Location = new System.Drawing.Point(157, 56);
-            this.txtTenGiaoVien.Name = "txtTenGiaoVien";
-            this.txtTenGiaoVien.Size = new System.Drawing.Size(300, 22);
-            this.txtTenGiaoVien.TabIndex = 1;
             // 
             // btnOK
             // 
@@ -148,9 +140,18 @@ namespace QuanLyGiaoVien
             this.numLuong.Size = new System.Drawing.Size(300, 22);
             this.numLuong.TabIndex = 16;
             // 
+            // cbTenGiaoVien
+            // 
+            this.cbTenGiaoVien.FormattingEnabled = true;
+            this.cbTenGiaoVien.Location = new System.Drawing.Point(157, 53);
+            this.cbTenGiaoVien.Name = "cbTenGiaoVien";
+            this.cbTenGiaoVien.Size = new System.Drawing.Size(300, 24);
+            this.cbTenGiaoVien.TabIndex = 17;
+            // 
             // EditGiaoVienForm
             // 
             this.ClientSize = new System.Drawing.Size(630, 389);
+            this.Controls.Add(this.cbTenGiaoVien);
             this.Controls.Add(this.numLuong);
             this.Controls.Add(this.dateTimePickerNS);
             this.Controls.Add(this.label6);
@@ -163,7 +164,6 @@ namespace QuanLyGiaoVien
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.txtTenGiaoVien);
             this.Controls.Add(this.btnOK);
             this.Name = "EditGiaoVienForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -185,5 +185,6 @@ namespace QuanLyGiaoVien
         private Label label6;
         private DateTimePicker dateTimePickerNS;
         private NumericUpDown numLuong;
+        private ComboBox cbTenGiaoVien;
     }
 }

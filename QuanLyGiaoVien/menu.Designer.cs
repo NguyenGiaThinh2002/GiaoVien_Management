@@ -35,17 +35,19 @@
             this.dataGridGiaoVien = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridLuong = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.ImportBtn = new System.Windows.Forms.Button();
+            this.ExportBtn = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
             this.textFindField = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.findButton = new System.Windows.Forms.Button();
             this.panelTop = new System.Windows.Forms.Panel();
             this.panelBottom = new System.Windows.Forms.Panel();
+            this.TotalCoBanBtn = new System.Windows.Forms.Button();
+            this.TotalPhuCapBtn = new System.Windows.Forms.Button();
+            this.TotalThuNhatBtn = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridKhoa)).BeginInit();
@@ -88,7 +90,7 @@
             this.dataGridKhoa.Name = "dataGridKhoa";
             this.dataGridKhoa.RowHeadersWidth = 60;
             this.dataGridKhoa.RowTemplate.Height = 30;
-            this.dataGridKhoa.Size = new System.Drawing.Size(1050, 470);
+            this.dataGridKhoa.Size = new System.Drawing.Size(1050, 412);
             this.dataGridKhoa.TabIndex = 1;
             // 
             // tabPage2
@@ -115,6 +117,9 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.TotalThuNhatBtn);
+            this.tabPage3.Controls.Add(this.TotalPhuCapBtn);
+            this.tabPage3.Controls.Add(this.TotalCoBanBtn);
             this.tabPage3.Controls.Add(this.dataGridLuong);
             this.tabPage3.Location = new System.Drawing.Point(4, 39);
             this.tabPage3.Name = "tabPage3";
@@ -132,30 +137,32 @@
             this.dataGridLuong.Name = "dataGridLuong";
             this.dataGridLuong.RowHeadersWidth = 60;
             this.dataGridLuong.RowTemplate.Height = 30;
-            this.dataGridLuong.Size = new System.Drawing.Size(1050, 470);
+            this.dataGridLuong.Size = new System.Drawing.Size(1050, 419);
             this.dataGridLuong.TabIndex = 0;
             // 
-            // button1
+            // ImportBtn
             // 
-            this.button1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(20, 15);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 40);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Nhập";
-            this.button1.UseVisualStyleBackColor = false;
+            this.ImportBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.ImportBtn.ForeColor = System.Drawing.Color.Black;
+            this.ImportBtn.Location = new System.Drawing.Point(20, 15);
+            this.ImportBtn.Name = "ImportBtn";
+            this.ImportBtn.Size = new System.Drawing.Size(100, 40);
+            this.ImportBtn.TabIndex = 1;
+            this.ImportBtn.Text = "Nhập";
+            this.ImportBtn.UseVisualStyleBackColor = false;
+            this.ImportBtn.Click += new System.EventHandler(this.ImportBtn_Click);
             // 
-            // button2
+            // ExportBtn
             // 
-            this.button2.BackColor = System.Drawing.Color.LightSalmon;
-            this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.Location = new System.Drawing.Point(130, 15);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 40);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Xuất";
-            this.button2.UseVisualStyleBackColor = false;
+            this.ExportBtn.BackColor = System.Drawing.Color.LightSalmon;
+            this.ExportBtn.ForeColor = System.Drawing.Color.Black;
+            this.ExportBtn.Location = new System.Drawing.Point(130, 15);
+            this.ExportBtn.Name = "ExportBtn";
+            this.ExportBtn.Size = new System.Drawing.Size(100, 40);
+            this.ExportBtn.TabIndex = 2;
+            this.ExportBtn.Text = "Xuất";
+            this.ExportBtn.UseVisualStyleBackColor = false;
+            this.ExportBtn.Click += new System.EventHandler(this.ExportBtn_Click);
             // 
             // button3
             // 
@@ -193,17 +200,6 @@
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.DeleteBtn);
             // 
-            // button6
-            // 
-            this.button6.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button6.ForeColor = System.Drawing.Color.Black;
-            this.button6.Location = new System.Drawing.Point(350, 10);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(100, 40);
-            this.button6.TabIndex = 6;
-            this.button6.Text = "Làm mới";
-            this.button6.UseVisualStyleBackColor = false;
-            // 
             // textFindField
             // 
             this.textFindField.Font = new System.Drawing.Font("Segoe UI", 10F);
@@ -238,8 +234,8 @@
             // panelTop
             // 
             this.panelTop.BackColor = System.Drawing.Color.LightGray;
-            this.panelTop.Controls.Add(this.button1);
-            this.panelTop.Controls.Add(this.button2);
+            this.panelTop.Controls.Add(this.ImportBtn);
+            this.panelTop.Controls.Add(this.ExportBtn);
             this.panelTop.Controls.Add(this.label1);
             this.panelTop.Controls.Add(this.textFindField);
             this.panelTop.Controls.Add(this.findButton);
@@ -254,11 +250,46 @@
             this.panelBottom.Controls.Add(this.button3);
             this.panelBottom.Controls.Add(this.button4);
             this.panelBottom.Controls.Add(this.button5);
-            this.panelBottom.Controls.Add(this.button6);
             this.panelBottom.Location = new System.Drawing.Point(20, 650);
             this.panelBottom.Name = "panelBottom";
             this.panelBottom.Size = new System.Drawing.Size(1160, 60);
             this.panelBottom.TabIndex = 11;
+            // 
+            // TotalCoBanBtn
+            // 
+            this.TotalCoBanBtn.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.TotalCoBanBtn.ForeColor = System.Drawing.Color.Black;
+            this.TotalCoBanBtn.Location = new System.Drawing.Point(50, 445);
+            this.TotalCoBanBtn.Name = "TotalCoBanBtn";
+            this.TotalCoBanBtn.Size = new System.Drawing.Size(196, 40);
+            this.TotalCoBanBtn.TabIndex = 8;
+            this.TotalCoBanBtn.Text = "Tổng Lương Cơ Bản";
+            this.TotalCoBanBtn.UseVisualStyleBackColor = false;
+            this.TotalCoBanBtn.Click += new System.EventHandler(this.TotalCoBanBtn_Click);
+            // 
+            // TotalPhuCapBtn
+            // 
+            this.TotalPhuCapBtn.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.TotalPhuCapBtn.ForeColor = System.Drawing.Color.Black;
+            this.TotalPhuCapBtn.Location = new System.Drawing.Point(270, 445);
+            this.TotalPhuCapBtn.Name = "TotalPhuCapBtn";
+            this.TotalPhuCapBtn.Size = new System.Drawing.Size(196, 40);
+            this.TotalPhuCapBtn.TabIndex = 9;
+            this.TotalPhuCapBtn.Text = "Tổng Lương Phụ Cấp";
+            this.TotalPhuCapBtn.UseVisualStyleBackColor = false;
+            this.TotalPhuCapBtn.Click += new System.EventHandler(this.TotalPhuCapBtn_Click);
+            // 
+            // TotalThuNhatBtn
+            // 
+            this.TotalThuNhatBtn.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.TotalThuNhatBtn.ForeColor = System.Drawing.Color.Black;
+            this.TotalThuNhatBtn.Location = new System.Drawing.Point(484, 445);
+            this.TotalThuNhatBtn.Name = "TotalThuNhatBtn";
+            this.TotalThuNhatBtn.Size = new System.Drawing.Size(196, 40);
+            this.TotalThuNhatBtn.TabIndex = 10;
+            this.TotalThuNhatBtn.Text = "Tổng Lương Thu Nhập";
+            this.TotalThuNhatBtn.UseVisualStyleBackColor = false;
+            this.TotalThuNhatBtn.Click += new System.EventHandler(this.TotalThuNhatBtn_Click);
             // 
             // menu
             // 
@@ -294,19 +325,19 @@
         private System.Windows.Forms.DataGridView dataGridKhoa;
         private System.Windows.Forms.DataGridView dataGridGiaoVien;
         private System.Windows.Forms.DataGridView dataGridLuong;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button ImportBtn;
+        private System.Windows.Forms.Button ExportBtn;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TextBox textFindField;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button findButton;
         private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.Panel panelBottom;
-
-
+        private System.Windows.Forms.Button TotalCoBanBtn;
+        private System.Windows.Forms.Button TotalPhuCapBtn;
+        private System.Windows.Forms.Button TotalThuNhatBtn;
     }
 
 }

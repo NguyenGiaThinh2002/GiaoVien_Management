@@ -47,6 +47,48 @@ namespace QuanLyGiaoVien.Helper
                 return cmd.ExecuteNonQuery();
             }
         }
+        public DataTable ExecuteCustomQuery(string sql, Npgsql.NpgsqlParameter[] parameters)
+        {
+            var dataTable = new DataTable();
+            using (var connection = new Npgsql.NpgsqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (var command = new Npgsql.NpgsqlCommand(sql, connection))
+                    {
+                        if (parameters != null)
+                        {
+                            command.Parameters.AddRange(parameters);
+                        }
+                        using (var adapter = new Npgsql.NpgsqlDataAdapter(command))
+                        {
+                            adapter.Fill(dataTable);
+                        }
+                    }
+                }
+                catch (Npgsql.NpgsqlException ex)
+                {
+                    // Log or handle the exception as needed
+                    Console.WriteLine($"Database error: {ex.Message}");
+                    throw; // Re-throw to allow calling code to handle it
+                }
+                catch (Exception ex)
+                {
+                    // Log or handle general exceptions
+                    Console.WriteLine($"General error: {ex.Message}");
+                    throw; // Re-throw to allow calling code to handle it
+                }
+                finally
+                {
+                    if (connection.State == System.Data.ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            return dataTable;
+        }
 
         public void ExecuteQuery(string sql, NpgsqlParameter parameter, DataGridView dataGridView)
         {

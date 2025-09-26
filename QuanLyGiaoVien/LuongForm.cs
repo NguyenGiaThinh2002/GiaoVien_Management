@@ -35,8 +35,14 @@ namespace QuanLyGiaoVien
             this.MinimizeBox = false;
             this.StartPosition = FormStartPosition.CenterParent;
 
+            // Load GiaoVien to ComboBox
+            LoadGiaoVienToComboBox();
+
             // Bind data to existing controls
-            txtTenGiaoVien.Text = _luong.GiaoVienId.ToString(); // Display giaovien_id or fetch name if needed
+            if (_luong.GiaoVienId != 0)
+            {
+                cbTenGiaoVien.SelectedValue = _luong.GiaoVienId; // Select the existing teacher in edit mode
+            }
             numThang.Value = _luong.Thang;
             numNam.Value = _luong.Nam;
             numLuongCoban.Value = _luong.LuongCoBan;
@@ -45,16 +51,9 @@ namespace QuanLyGiaoVien
             // Event handlers
             btnOK.Click += (s, e) =>
             {
-                if (string.IsNullOrWhiteSpace(txtTenGiaoVien.Text))
+                if (cbTenGiaoVien.SelectedValue == null)
                 {
-                    MessageBox.Show("Giáo viên ID is required.", "Validation Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                if (!int.TryParse(txtTenGiaoVien.Text, out int giaovienId))
-                {
-                    MessageBox.Show("Invalid Giáo viên ID.", "Validation Error",
+                    MessageBox.Show("Vui lòng chọn tên giáo viên.", "Validation Error",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -62,7 +61,7 @@ namespace QuanLyGiaoVien
                 EnteredLuong = new Luong
                 {
                     BangLuongId = _luong.BangLuongId,
-                    GiaoVienId = giaovienId,
+                    GiaoVienId = Convert.ToInt32(cbTenGiaoVien.SelectedValue),
                     Thang = (int)numThang.Value,
                     Nam = (int)numNam.Value,
                     LuongCoBan = numLuongCoban.Value,
@@ -88,6 +87,13 @@ namespace QuanLyGiaoVien
             }
         }
 
+        private void LoadGiaoVienToComboBox()
+        {
+            DataTable dt = _db.GetData("SELECT giaovien_id, ho_ten FROM giaovien ORDER BY ho_ten");
+            cbTenGiaoVien.DataSource = dt;
+            cbTenGiaoVien.DisplayMember = "ho_ten";
+            cbTenGiaoVien.ValueMember = "giaovien_id";
+            cbTenGiaoVien.SelectedIndex = -1; // No default selection
+        }
     }
-
 }
